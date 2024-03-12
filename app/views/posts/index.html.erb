@@ -1,0 +1,58 @@
+<h3>一覧ページ</h3>
+<%= link_to "診断を始める", new_sindan_path, class: "link" %>
+
+<% if user_signed_in? %>
+  <% if current_user == @user || current_user.admin? %>
+    <%= link_to "新規投稿へ", new_post_path %>
+  <% end %>
+<% end %>
+<div class="posts-introduce">
+
+</div>
+<div class="posts-container">
+  <% @posts.each do |t| %>
+    <div class="posts">
+    <div class="posts-image">
+    
+    <%= image_tag t.image_url, size: "250x200" if t.image? %>
+    </div>
+
+    <div class="posts-name">
+      <%= t.name %>
+      </div>
+
+
+      <div class="posts-about">
+
+      <%= t.about %>
+      </div>
+      <div>
+    <h2>総合評価：
+    <span class="star-rating">
+       <span class="star-rating-front" style="width: <%= getPercent(t.overall) %>%;">★★★★★</span>
+       <span class="star-rating-back">★★★★★</span>
+    </span> 
+    </h2>
+    </div>
+    
+    <!--- 総合評価の星の部分終わり------->
+    
+    
+    <!--- 授業レベルの星の部分 ------------>
+    <div>
+    <h2>飲みやすさ：
+    <span class="star-rating">
+       <span class="star-rating-front" style="width: <%= getPercent(t.level) %>%;">★★★★★</span>
+       <span class="star-rating-back">★★★★★</span>
+    </span>
+    </h2>
+    </div>
+    <!--- 授業レベルの星の部分終わり-------->
+    
+
+      <%= link_to "詳細へ", post_path(t.id) %> 
+      <%= link_to "編集する", edit_post_path(t.id) %>
+      <%= link_to "削除する", post_path(t.id), method: :delete %> 
+    </div>
+  <% end %>
+</div>

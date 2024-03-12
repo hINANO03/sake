@@ -1,0 +1,9 @@
+<h1>広島のお酒</h1>
+<h3>お酒の詳細</h3>
+<div class="post">
+  <p><%= @post.name %></p>
+  <p><%= @post.about %></p>
+  <p><%= @post.created_at %></p>
+</div>
+<%= link_to "編集する", edit_post_path(@post.id) %>
+<%= link_to "お酒一覧に戻る", posts_path %>
